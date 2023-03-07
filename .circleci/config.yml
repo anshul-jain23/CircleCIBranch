@@ -20,7 +20,13 @@ jobs:
   print-hello:
     docker:
       - image: circleci/node:13.8.0
+    environment:
+      Circle_Compare_Url: /My pipeline id is << pipeline.id >> and my git branch is << pipeline.git.branch >>/
     steps:
+      - run:
+          name: "Print pipeline id"
+          command: echo  "This is pipeline id << pipeline.id >>"
+      - run: echo $Circle_Compare_Url
       - run:
           name: "Print Hello"
           command: "echo Hello"
@@ -29,7 +35,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - run:
-          name: "Print World"          
+          name: "Print World"
           command: "echo World"
 
 # Invoke jobs via workflows
