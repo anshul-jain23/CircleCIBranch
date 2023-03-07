@@ -73,7 +73,7 @@ jobs:
     steps:
       - run:
           name: "Returning non zero value"
-          command: "return 1"
+          command: exit 1
       - run:
           command: echo "Some Error Occured!"
           when: on_fail
