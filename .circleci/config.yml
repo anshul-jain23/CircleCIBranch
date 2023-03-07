@@ -68,12 +68,21 @@ jobs:
     <<: *defaults
     steps:
       - print_pipeline_id
-
+  error_job:
+    <<: *defaults
+    steps:
+      - run:
+          name: "Returning non zero value"
+          command: "return 1"
+      - run:
+          command: echo "Some Error Occured!"
+          when: on_fail
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
+      - error_job
       - print-pipelineId
       - say-hello
       - print-hello
