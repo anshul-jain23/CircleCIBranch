@@ -9,12 +9,11 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: mkdir -p results
       - run:
           name: "save_hello_world_output"
-          command: echo "Hello World" > results/output.txt
+          command: echo "Hello World" > ~/output.txt
       - persist_to_workspace:
-          root: results
+          root: ~/
           paths:
             - output.txt
   get_hello_world_output:
@@ -22,10 +21,10 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
-          at: results
+          at: ~/
       - run:
           name: "Get_hello_world_output"
-          command: cat results/output.txt
+          command: cat ~/output.txt
   say-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
