@@ -2,12 +2,16 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+Defaults: &defaults
+  docker:
+    - image: circleci/node:13.8.0
+  Working_directory: ~/
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   save_hello_world_output:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - run:
           name: "save_hello_world_output"
@@ -17,8 +21,7 @@ jobs:
           paths:
             - output.txt
   get_hello_world_output:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - attach_workspace:
           at: ~/
@@ -38,8 +41,7 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
   print-hello:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     environment:
       Circle_Compare_Url: My pipeline id is << pipeline.id >> and my git branch is << pipeline.git.branch >>
     steps:
@@ -51,8 +53,7 @@ jobs:
           name: "Print Hello"
           command: echo $Pipeline_User
   print-world:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - run:
           name: "Print World"
