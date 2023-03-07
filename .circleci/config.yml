@@ -74,6 +74,7 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
+      - print-pipelineId
       - say-hello
       - print-hello
       - print-world:
